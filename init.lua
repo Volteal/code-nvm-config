@@ -26,4 +26,8 @@ require('lazy').setup {
   require 'plugins.alpha',
   require 'plugins.indent-blankline',
   require 'plugins.misc',
+  require 'plugins.spellwarn',
+  require 'plugins.pencil',
+  require 'plugins.md-preview',
+  require 'plugins.zenmode',
 }

@@ -45,3 +45,6 @@ vim.opt.shortmess:append 'c'
 vim.opt.iskeyword:append '-'
 vim.opt.formatoptions:remove { 'c', 'r', 'o' }
 vim.opt.runtimepath:remove '/usr/share/vim/vimfiles'
+
+vim.diagnostic.config { virtual_lines = true }
+-- vim.diagnostic.config { virtual_text = true }

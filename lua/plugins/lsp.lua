@@ -9,8 +9,8 @@ return {
   },
   config = function()
     vim.api.nvim_create_autocmd('LspAttach', {
-        group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
-        callback = function(event)
+      group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
+      callback = function(event)
         local map = function(keys, func, desc, mode)
           mode = mode or 'n'
           vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
@@ -51,7 +51,7 @@ return {
         end
 
         if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
-          map('<leader>th', function()
+          map('<leader>to', function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
           end, '[T]oggle Inlay [H]ints')
         end
@@ -61,9 +61,25 @@ return {
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
-   local servers = {
-        gopls = {},
-        ruff = {},
+    local servers = {
+      gopls = {
+        cmd = { 'gopls' },
+        filetypes = { 'go', 'gomod', 'gowork', 'gotmpl' },
+        settings = {
+          gopls = {
+            hints = {
+              rangeVariableTypes = true,
+              parameterNames = true,
+              constantValues = true,
+              assignVariableTypes = true,
+              compositeLiteralFields = true,
+              compositeLiteralTypes = true,
+              functionTypeParameters = true,
+            },
+          },
+        },
+      },
+      ruff = {},
       pylsp = {
         settings = {
           pylsp = {
@@ -129,4 +145,3 @@ return {
     }
   end,
 }
-
